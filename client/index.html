@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>99</title>
+    <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script src="client.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
+    <link rel="stylesheet" type="text/css" href="styles/cards.css">
+</head>
+
+<body>
+    <div id="connection">
+        <span>Status:<span><span id="connection-status" class="connecting">Connecting</span>
+    </div>
+
+    <div id="container">
+        <div id="server-area">
+            <div class="other-player">other player</div>
+            <div id="board">
+                <div id="card-total">123</div>
+            </div>
+            <div class="other-player">other player</div>
+        </div>
+        <div id="player-area">
+            <div id="player-cards-wrapper" class="cards-wrapper">
+                <div id="player-cards" class="cards">
+                    <img src="images/_Blank.png" class="card card-spades-A"></img>
+                    <img src="images/_Blank.png" class="card card-diamonds-2"></img>
+                    <img src="images/_Blank.png" class="card card-hearts-Q"></img>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="hidden game-over-message">
+        <div class="inner"></div>
+        <div class="dummy-valign"></div>
+    </div>
+
+    <script>
+        game = new GameClient({
+                server: "ws://localhost:8080"
+            });
+    </script>
+</body>
+
+</html>

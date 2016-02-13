@@ -1,0 +1,262 @@
+.cards-wrapper {
+    overflow: hidden;
+    text-align: center;
+}
+
+.cards {
+    height: 80%;
+    position: relative;
+    top: 20%;
+    display: inline-block;
+}
+
+.card {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 100%;
+    position: absolute;
+    transform-origin: center bottom;
+    transition: all 0.1s;
+    cursor: pointer;
+}
+
+.cards .card:first-child {
+    transform: translate(-50%, 0) rotate(-15deg);
+}
+
+.cards .card:first-child:hover {
+    transform: translate(-50%, 0) scale(1.1) rotate(-15deg);
+}
+
+.cards .card:nth-child(2) {
+    transform: translate(-50%, 0) ;
+}
+
+.cards .card:nth-child(2):hover {
+    transform: translate(-50%, 0) scale(1.1);
+}
+
+.cards .card:nth-child(3) {
+    transform: translate(-50%, 0) rotate(15deg);
+}
+
+.cards .card:nth-child(3):hover {
+    transform: translate(-50%, 0) scale(1.1) rotate(15deg);
+}
+
+/* Clubs */
+.card-back {
+    background-image: url("../images/_Back.png");
+}
+
+.card-clubs-A {
+    background-image: url("../images/Clubs 1.png");
+}
+
+.card-clubs-2 {
+    background-image: url("../images/Clubs 2.png");
+}
+
+.card-clubs-3 {
+    background-image: url("../images/Clubs 3.png");
+}
+
+.card-clubs-4 {
+    background-image: url("../images/Clubs 4.png");
+}
+
+.card-clubs-5 {
+    background-image: url("../images/Clubs 5.png");
+}
+
+.card-clubs-6 {
+    background-image: url("../images/Clubs 6.png");
+}
+
+.card-clubs-7 {
+    background-image: url("../images/Clubs 7.png");
+}
+
+.card-clubs-8 {
+    background-image: url("../images/Clubs 8.png");
+}
+
+.card-clubs-9 {
+    background-image: url("../images/Clubs 9.png");
+}
+
+.card-clubs-10 {
+    background-image: url("../images/Clubs 10.png");
+}
+
+.card-clubs-J {
+    background-image: url("../images/Clubs 11.png");
+}
+
+.card-clubs-Q {
+    background-image: url("../images/Clubs 12.png");
+}
+
+.card-clubs-K {
+    background-image: url("../images/Clubs 13.png");
+}
+
+/* Diamonds */
+.card-diamonds-A {
+    background-image: url("../images/Diamonds 1.png");
+}
+
+.card-diamonds-2 {
+    background-image: url("../images/Diamonds 2.png");
+}
+
+.card-diamonds-3 {
+    background-image: url("../images/Diamonds 3.png");
+}
+
+.card-diamonds-4 {
+    background-image: url("../images/Diamonds 4.png");
+}
+
+.card-diamonds-5 {
+    background-image: url("../images/Diamonds 5.png");
+}
+
+.card-diamonds-6 {
+    background-image: url("../images/Diamonds 6.png");
+}
+
+.card-diamonds-7 {
+    background-image: url("../images/Diamonds 7.png");
+}
+
+.card-diamonds-8 {
+    background-image: url("../images/Diamonds 8.png");
+}
+
+.card-diamonds-9 {
+    background-image: url("../images/Diamonds 9.png");
+}
+
+.card-diamonds-10 {
+    background-image: url("../images/Diamonds 10.png");
+}
+
+.card-diamonds-J {
+    background-image: url("../images/Diamonds 11.png");
+}
+
+.card-diamonds-Q {
+    background-image: url("../images/Diamonds 12.png");
+}
+
+.card-diamonds-K {
+    background-image: url("../images/Diamonds 13.png");
+}
+
+/* Hearts */
+.card-hearts-A {
+    background-image: url("../images/Hearts 1.png");
+}
+
+.card-hearts-2 {
+    background-image: url("../images/Hearts 2.png");
+}
+
+.card-hearts-3 {
+    background-image: url("../images/Hearts 3.png");
+}
+
+.card-hearts-4 {
+    background-image: url("../images/Hearts 4.png");
+}
+
+.card-hearts-5 {
+    background-image: url("../images/Hearts 5.png");
+}
+
+.card-hearts-6 {
+    background-image: url("../images/Hearts 6.png");
+}
+
+.card-hearts-7 {
+    background-image: url("../images/Hearts 7.png");
+}
+
+.card-hearts-8 {
+    background-image: url("../images/Hearts 8.png");
+}
+
+.card-hearts-9 {
+    background-image: url("../images/Hearts 9.png");
+}
+
+.card-hearts-10 {
+    background-image: url("../images/Hearts 10.png");
+}
+
+.card-hearts-J {
+    background-image: url("../images/Hearts 11.png");
+}
+
+.card-hearts-Q {
+    background-image: url("../images/Hearts 12.png");
+}
+
+.card-hearts-K {
+    background-image: url("../images/Hearts 13.png");
+}
+
+/* Spades */
+.card-spades-A {
+    background-image: url("../images/Spades 1.png");
+}
+
+.card-spades-2 {
+    background-image: url("../images/Spades 2.png");
+}
+
+.card-spades-3 {
+    background-image: url("../images/Spades 3.png");
+}
+
+.card-spades-4 {
+    background-image: url("../images/Spades 4.png");
+}
+
+.card-spades-5 {
+    background-image: url("../images/Spades 5.png");
+}
+
+.card-spades-6 {
+    background-image: url("../images/Spades 6.png");
+}
+
+.card-spades-7 {
+    background-image: url("../images/Spades 7.png");
+}
+
+.card-spades-8 {
+    background-image: url("../images/Spades 8.png");
+}
+
+.card-spades-9 {
+    background-image: url("../images/Spades 9.png");
+}
+
+.card-spades-10 {
+    background-image: url("../images/Spades 10.png");
+}
+
+.card-spades-J {
+    background-image: url("../images/Spades 11.png");
+}
+
+.card-spades-Q {
+    background-image: url("../images/Spades 12.png");
+}
+
+.card-spades-K {
+    background-image: url("../images/Spades 13.png");
+}
