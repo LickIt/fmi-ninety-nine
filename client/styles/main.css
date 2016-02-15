@@ -1,3 +1,5 @@
+/* common */
+
 html,
 body {
     padding: 0;
@@ -8,6 +10,8 @@ body {
 .hidden {
     display: none;
 }
+
+/* game over message */
 
 .game-over-message {
     position: absolute;
@@ -48,7 +52,9 @@ body {
     width: 0;
 }
 
-#connection {
+/* status bar */
+
+#status-bar {
     box-sizing: border-box;
     padding-left: 10px;
     font-size: 20px;
@@ -58,21 +64,32 @@ body {
     background-color: #333;
 }
 
-#connection-status {
+#status-bar .status {
     padding-left: 10px;
 }
 
-.connecting {
+#status-bar .status.connecting::after {
     color: yellow;
+    content: "Connecting";
 }
 
-.connected {
+#status-bar .status.waiting::after {
+    color: yellow;
+    content: "Waiting for players";
+}
+
+#status-bar .status.running::after {
     color: lime;
+    content: "Running";
 }
 
-.disconnected {
+#status-bar .status.disconnected::after {
     color: red;
+    content: "Disconnected";
 }
+
+
+/* board */
 
 #container {
     width: 100%;
@@ -91,23 +108,31 @@ body {
     float: left;
 }
 
-.other-player {
+.player.remote {
     background-color: skyblue;
     height: 100%;
     width: 30%;
     float: left;
 }
 
-#player-area {
+.player.main {
     width: 100%;
     height: 50%;
     background-color: gray;
 }
 
+.player.active {
+    background-color: rebeccapurple;
+}
+
+
 #player-cards-wrapper {
     width: 100%;
     height: 100%;
 }
+
+
+/* cards */
 
 .card-choice-box {
     position: absolute;

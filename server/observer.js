@@ -1,22 +1,38 @@
 "use strict";
 
-function Observer(players, game) {
-    this.players = players;
-    this.game = game;
+function Observer(subscribers, idSelector) {
+    this.subscribers = subscribers;
+    if (typeof idSelector !== "function") {
+        this.id = subscriber => subscriber.id;
+    }
+    else {
+        this.id = idSelector;
+    }
 }
 
-Observer.prototype.notify = function (playerId, event, data) {
-    this.players.forEach(function (player) {
-        if (player.id == playerId) {
-            player.send(JSON.stringify({ event, data }));
-        }
-    }, this);
+Observer.prototype.removeSubscriber = function (subscriber) {
+    this.subscribers = this.subscribers.filter(sub => this.id(sub) !== this.id(subscriber));
+};
+
+Observer.prototype.notify = function (subscriberId, event, data) {
+    var subscriber = this.subscribers.find(sub => this.id(sub) === subscriberId, this);
+    if (subscriber) {
+        subscriber.send(JSON.stringify({ event, data }), function (error) {
+            if (error) {
+                console.error(error);
+            }
+        });
+    }
 };
 
 Observer.prototype.notifyAll = function (event, data) {
-    this.players.forEach(function (player) {
-        this.notify(player, event, data);
+    this.subscribers.forEach(function (subscriber) {
+        subscriber.send(JSON.stringify({ event, data }), function (error) {
+            if (error) {
+                console.error(error);
+            }
+        });
     }, this);
 };
 
-module.export = Observer;
+module.exports = Observer;

@@ -21,12 +21,10 @@ function GameState(players) {
     this.players = players;
     this.currentPlayerId = 0;
     this.direction = 1;
-    this.deck = generateDeck();
-    shuffleDeck(this.deck);
 
     // generate a deck of 52 cards
     var generateDeck = function () {
-        var cardSuites = ["clubs", "hearts", "spades", "diamond"];
+        var cardSuites = ["clubs", "hearts", "spades", "diamonds"];
         var cardValues = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
         var deck = new Array(52);
 
@@ -49,6 +47,9 @@ function GameState(players) {
             deck[j] = tmp;
         }
     };
+    
+    this.deck = generateDeck();
+    shuffleDeck(this.deck);
 }
 
 // get top card from deck and remove it
@@ -111,15 +112,14 @@ function Game(players, observer) {
     }, this);
 
     // start game and begin first turn
-    this.observer.notifyAll(this.clientEvents.gameStart, JSON.stringify(players));
-    this.observer.notifyAll(this.clientEvents.playerBeginTurn, this.gameState.currentPlayerId.toString());
+    this.observer.notifyAll(this.clientEvents.gameStart, players);
+    this.observer.notifyAll(this.clientEvents.playerBeginTurn, this.gameState.players[this.gameState.currentPlayerId]);
 }
 
 // The game engine
 Game.prototype.playCard = function (player, cardString) {
     var card = Card.parse(cardString);
     var total = this.gameState.total;
-    var currentPlayer = this.gameState.players[this.gameState.currentPlayerId];
 
     switch (card.value) {
         case "3": // skip next player
@@ -128,7 +128,7 @@ Game.prototype.playCard = function (player, cardString) {
             break;
         case "4": // reverse direction of play
             this.gameState.direction *= -1;
-            this.observer.notifyAll(this.clientEvents.setDirection, this.gameState.direction.toString());
+            this.observer.notifyAll(this.clientEvents.setDirection, this.gameState.direction);
             break;
         case "10i": // inverse 10
             total -= 10;
@@ -159,25 +159,25 @@ Game.prototype.playCard = function (player, cardString) {
     else {
         // set new total
         this.gameState.total = total;
-        this.observer.notifyAll(this.clientEvents.setTotal, total.toString());
+        this.observer.notifyAll(this.clientEvents.setTotal, total);
         // draw card
         this.observer.notify(player, this.clientEvents.receiveCard, this.gameState.drawCard().toString());
     }
 
     // end player turn and begin next
-    this.observer.notifyAll(this.clientEvents.playerEndTurn, player.toString());
+    this.observer.notifyAll(this.clientEvents.playerEndTurn, player);
     this.gameState.advancePlayers();
-    this.observer.notifyAll(this.clientEvents.playerBeginTurn, this.gameState.players[this.gameState.currentPlayerId].toString());
+    this.observer.notifyAll(this.clientEvents.playerBeginTurn, this.gameState.players[this.gameState.currentPlayerId]);
 };
 
 // player lost
 Game.prototype.playerLost = function (player) {
-    this.observer.notifyAll(this.clientEvents.playerLost, player.toString());
+    this.observer.notifyAll(this.clientEvents.playerLost, player);
     this.gameState.removePlayer(player);
         
     // game end
-    if (this.gameState.players.length < 2) {
-        this.observer.notifyAll(this.clientEvents.gameEnd, this.gameState.players[0].toString());
+    if (this.gameState.players.length < 2 && this.gameState.players.length > 0) {
+        this.observer.notifyAll(this.clientEvents.gameEnd, this.gameState.players[0]);
         return;
     }
 };

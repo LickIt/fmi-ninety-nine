@@ -25,14 +25,11 @@ wss.on("connection", function connection(ws) {
     // on disconnect
     ws.on("close", function () {
         // remove player from queue if there
-        for (let i = 0; i < players.length; i++) {
-            if (players[i].id == ws.id) {
-                players.splice(i, 1);
-            }
-        }
+        players = players.filter(player => player.id != ws.id);
         
         // ... or remove him from any running games
         if (ws.game) {
+            ws.game.observer.removeSubscriber(ws);
             ws.game.playerLost(ws.id);
         }
     });
@@ -40,13 +37,13 @@ wss.on("connection", function connection(ws) {
     // send the player id to client
     ws.send(JSON.stringify({
         event: "setPlayerId",
-        data: ws.id.toString()
+        data: ws.id
     }));
     
     // start the game if there are enough players
-    if (players.length == 3) {
+    if (players.length >= 3) {
         var gamePlayers = players.splice(0, 3);
-        var game = new Game(gamePlayers, new Observer(gamePlayers, game));
+        var game = new Game(gamePlayers.map(player => player.id), new Observer(gamePlayers, game));
 
         gamePlayers.forEach(function (gamePlayer) {
             // set game object to each player
