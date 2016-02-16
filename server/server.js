@@ -15,7 +15,6 @@ wss.on("connection", function connection(ws) {
 
     // on message received send it to the game
     ws.on("message", function (message) {
-        console.log("Received: " + message);
         var json = JSON.parse(message);
         if (ws.game) {
             ws.game.onClientMessage(ws.id, json.event, json.data);

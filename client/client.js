@@ -15,7 +15,6 @@ function GameClient(config) {
         receiveCard: function (card) {
             this.config.cards.push(card);
             $("<img src=\"images/_Blank.png\"></img>").addClass("card").addClass("card-" + card).attr("data-card", card).appendTo("#player-cards");
-            //$("#player-cards").append
             // make some animation
         },
 
@@ -41,11 +40,15 @@ function GameClient(config) {
         },
 
         setTotal: function (total) {
-
+            $("#card-total").text(total);
         },
 
         setDirection: function (direction) {
-
+            $("#direction").removeClass().addClass(direction < 0 ? "clockwise" : "counterclockwise");
+        },
+        
+        cardPlayed: function (data) {
+            $("<img src=\"images/_Blank.png\"></img>").addClass("card").addClass("card-" + data.card).appendTo("#discard-pile");
         },
 
         playerLost: function (playerId) {
@@ -107,7 +110,7 @@ function GameClient(config) {
 
     this.playCard = function (card, dom) {
         self.send({ event: serverEvents.playCard, data: card });
-        dom.remove();
+        $(dom).appendTo("#discard-pile");
     };
 
     /* Web Sockets */
@@ -144,5 +147,4 @@ function GameClient(config) {
     };
 
     init();
-    //this.connect(this.config.server);
 }

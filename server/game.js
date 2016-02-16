@@ -47,7 +47,7 @@ function GameState(players) {
             deck[j] = tmp;
         }
     };
-    
+
     this.deck = generateDeck();
     shuffleDeck(this.deck);
 }
@@ -99,6 +99,7 @@ function Game(players, observer) {
         setTotal: "setTotal",
         setDirection: "setDirection",
         receiveCard: "receiveCard",
+        cardPlayed: "cardPlayed",
         playerLost: "playerLost",
         gameEnd: "gameEnd",
     };
@@ -159,6 +160,7 @@ Game.prototype.playCard = function (player, cardString) {
     else {
         // set new total
         this.gameState.total = total;
+        this.observer.notifyAll(this.clientEvents.cardPlayed, { playerId: player, card: cardString });
         this.observer.notifyAll(this.clientEvents.setTotal, total);
         // draw card
         this.observer.notify(player, this.clientEvents.receiveCard, this.gameState.drawCard().toString());
