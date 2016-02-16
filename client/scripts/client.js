@@ -3,8 +3,7 @@
 // game client class
 function GameClient(config) {
     var self = this;
-    this.config = { player: {}, cards: [] };
-    this.config = $.extend(this.config, config);
+    this.config = $.extend({ player: {}, cards: [] }, config);
 
     this.eventHandlers = {
         setPlayerId: function (playerId) {
@@ -32,23 +31,27 @@ function GameClient(config) {
         },
 
         playerBeginTurn: function (playerId) {
+            this.config.currentPlayerId = playerId;
             $(".player[data-id=" + playerId + "]").addClass("active");
         },
 
         playerEndTurn: function (playerId) {
+            this.config.currentPlayerId = null;
             $(".player[data-id=" + playerId + "]").removeClass("active");
         },
 
         setTotal: function (total) {
-            $("#card-total").text(total);
+            $("#card-total").text("Score: " + total);
         },
 
         setDirection: function (direction) {
             $("#direction").removeClass().addClass(direction < 0 ? "clockwise" : "counterclockwise");
         },
-        
+
         cardPlayed: function (data) {
-            $("<img src=\"images/_Blank.png\"></img>").addClass("card").addClass("card-" + data.card).appendTo("#discard-pile");
+            if (data.playerId !== this.config.player.id) {
+                this.discardCard($("<img src=\"images/_Blank.png\"></img>").addClass("card").addClass("card-" + data.card));
+            }
         },
 
         playerLost: function (playerId) {
@@ -74,13 +77,15 @@ function GameClient(config) {
 
     /* Events */
     this.onCardClick = function (e) {
-        var card = $(this).attr("data-card");
-        if (card.endsWith("A") || card.endsWith("10")) {
-            self.showCardChoice(e, card, this);
-            return true;
-        }
+        if (self.config.currentPlayerId === self.config.player.id) {
+            var card = $(this).attr("data-card");
+            if (card.endsWith("A") || card.endsWith("10")) {
+                self.showCardChoice(e, card, this);
+                return true;
+            }
 
-        self.playCard(card, this);
+            self.playCard(card, this);
+        }
     };
 
     this.showCardChoice = function (e, card, dom) {
@@ -108,9 +113,13 @@ function GameClient(config) {
         e.stopPropagation();
     }
 
+    this.discardCard = function (cardElement) {
+        $(cardElement).css("margin-left", $("#discard-pile").children().length * 3 + "%").appendTo("#discard-pile");
+    };
+
     this.playCard = function (card, dom) {
         self.send({ event: serverEvents.playCard, data: card });
-        $(dom).appendTo("#discard-pile");
+        self.discardCard(dom);
     };
 
     /* Web Sockets */

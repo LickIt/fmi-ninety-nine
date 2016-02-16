@@ -1,5 +1,12 @@
-.cards-wrapper {
+.player.main .cards-wrapper {
     overflow: hidden;
+    text-align: center;
+}
+
+.player.remote .cards-wrapper {
+    height: 45%;
+    top: 10%;
+    position: relative;
     text-align: center;
 }
 
@@ -17,7 +24,13 @@
     height: 100%;
     position: absolute;
     transform-origin: center bottom;
+}
+
+.player.main .card {
     transition: all 0.1s;
+}
+
+.player.main.active .card {
     cursor: pointer;
 }
 
@@ -25,7 +38,7 @@
     transform: translate(-50%, 0) rotate(-15deg);
 }
 
-.cards .card:first-child:hover {
+.player.main.active .cards .card:first-child:hover {
     transform: translate(-50%, 0) scale(1.1) rotate(-15deg);
 }
 
@@ -33,7 +46,7 @@
     transform: translate(-50%, 0) ;
 }
 
-.cards .card:nth-child(2):hover {
+.player.main.active .cards .card:nth-child(2):hover {
     transform: translate(-50%, 0) scale(1.1);
 }
 
@@ -41,7 +54,7 @@
     transform: translate(-50%, 0) rotate(15deg);
 }
 
-.cards .card:nth-child(3):hover {
+.player.main.active .cards .card:nth-child(3):hover {
     transform: translate(-50%, 0) scale(1.1) rotate(15deg);
 }
 
